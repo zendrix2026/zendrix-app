@@ -1,51 +1,599 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZENDRIX</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #101426;
-      color: white;
-      text-align: center;
-    }
-    header {
-      padding: 35px;
-      background: #171f3d;
-    }
-    h1 {
-      color: #8b7cff;
-      font-size: 42px;
-    }
-    main {
-      padding: 40px 20px;
-    }
-    .card {
-      background: #202b4b;
-      padding: 25px;
-      margin: 15px auto;
-      border-radius: 15px;
-      max-width: 450px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZENDRIX - Tableau de bord</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #0b1020;
+  color: #f5f5ff;
+  min-height: 100vh;
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 235px;
+  background: #11182b;
+  padding: 28px 18px;
+  border-right: 1px solid #27304a;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: bold;
+  color: #a78bfa;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #8d96ad;
+  font-size: 12px;
+  margin-bottom: 38px;
+}
+
+.menu button {
+  display: block;
+  width: 100%;
+  background: transparent;
+  color: #b8c0d5;
+  border: none;
+  text-align: left;
+  padding: 14px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.menu button:hover,
+.menu button.active {
+  background: #282044;
+  color: #c4b5fd;
+}
+
+.main {
+  flex: 1;
+  padding: 35px;
+  min-width: 0;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.topbar h1 {
+  font-size: 27px;
+}
+
+.profile {
+  background: #1a2340;
+  padding: 10px 16px;
+  border-radius: 20px;
+  color: #c4b5fd;
+  font-size: 13px;
+}
+
+.welcome {
+  background: linear-gradient(120deg, #29204c, #182746);
+  padding: 30px;
+  border-radius: 18px;
+  margin-bottom: 25px;
+}
+
+.welcome h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.welcome p {
+  color: #c3c8dc;
+  line-height: 1.6;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+.stat, .panel {
+  background: #151e33;
+  border: 1px solid #29334e;
+  padding: 22px;
+  border-radius: 15px;
+}
+
+.stat p {
+  color: #a1abc2;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.stat h3 {
+  font-size: 28px;
+  color: #c4b5fd;
+}
+
+.panel {
+  margin-bottom: 20px;
+}
+
+.panel h2 {
+  font-size: 19px;
+  margin-bottom: 18px;
+}
+
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 12px;
+  background: #0e172a;
+  border: 1px solid #39445e;
+  border-radius: 8px;
+  color: white;
+  margin-bottom: 12px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.primary {
+  background: #8b5cf6;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.primary:hover {
+  background: #7042d8;
+}
+
+.item {
+  background: #202b43;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.item small {
+  color: #aab4ca;
+}
+
+.delete {
+  background: #542b42;
+  color: #ffc2d5;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.empty {
+  color: #8792aa;
+  font-size: 14px;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.service {
+  background: #202b43;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.service h3 {
+  color: #c4b5fd;
+  margin-bottom: 8px;
+}
+
+.service p {
+  color: #aab4ca;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.footer {
+  color: #68748e;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 35px;
+}
+
+@media (max-width: 750px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 18px;
+  }
+
+  .subtitle {
+    margin-bottom: 15px;
+  }
+
+  .menu {
+    display: flex;
+    overflow-x: auto;
+    gap: 5px;
+  }
+
+  .menu button {
+    white-space: nowrap;
+    width: auto;
+    margin: 0;
+  }
+
+  .main {
+    padding: 20px;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 </head>
+
 <body>
-  <header>
-    <h1>ZENDRIX</h1>
-    <p>Ton espace. Tes projets. Ton avenir.</p>
-  </header>
-  <main>
-    <div class="card">
-      <h2>Bienvenue sur ZENDRIX</h2>
-      <p>Organise tes projets et avance vers tes objectifs.</p>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="logo">ZENDRIX</div>
+    <div class="subtitle">Ton espace. Tes projets. Ton avenir.</div>
+
+    <nav class="menu">
+      <button class="active" onclick="showSection('dashboard', this)">⌂ Tableau de bord</button>
+      <button onclick="showSection('projects', this)">▣ Mes projets</button>
+      <button onclick="showSection('tasks', this)">✓ Mes tâches</button>
+      <button onclick="showSection('services', this)">◇ Services</button>
+    </nav>
+  </aside>
+
+  <main class="main">
+
+    <div class="topbar">
+      <h1 id="pageTitle">Tableau de bord</h1>
+      <div class="profile">Mon espace ZENDRIX</div>
     </div>
-    <div class="card">
-      <h2>Mes tâches</h2>
-      <p>À faire • En cours • Terminé</p>
+
+    <section id="dashboard" class="section active">
+
+      <div class="welcome">
+        <h2>Bienvenue sur ZENDRIX !</h2>
+        <p>
+          Organise tes idées, développe tes projets et avance
+          vers tes objectifs depuis un seul espace.
+        </p>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <p>Mes projets</p>
+          <h3 id="projectCount">0</h3>
+        </div>
+
+        <div class="stat">
+          <p>Mes tâches</p>
+          <h3 id="taskCount">0</h3>
+        </div>
+
+        <div class="stat">
+          <p>Tâches terminées</p>
+          <h3 id="doneCount">0</h3>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Bienvenue dans ton espace de travail</h2>
+        <p class="empty">
+          Commence par ajouter un projet ou une tâche.
+          Tes informations seront enregistrées dans ce navigateur.
+        </p>
+      </div>
+
+    </section>
+
+    <section id="projects" class="section">
+
+      <div class="panel">
+        <h2>Créer un projet</h2>
+
+        <input id="projectName" type="text"
+          placeholder="Nom de ton projet">
+
+        <textarea id="projectDescription"
+          placeholder="Description du projet"></textarea>
+
+        <button class="primary" onclick="addProject()">
+          + Ajouter le projet
+        </button>
+      </div>
+
+      <div class="panel">
+        <h2>Mes projets</h2>
+        <div id="projectList"></div>
+      </div>
+
+    </section>
+
+    <section id="tasks" class="section">
+
+      <div class="panel">
+        <h2>Ajouter une tâche</h2>
+
+        <input id="taskName" type="text"
+          placeholder="Nom de la tâche">
+
+        <select id="taskStatus">
+          <option value="À faire">À faire</option>
+          <option value="En cours">En cours</option>
+          <option value="Terminée">Terminée</option>
+        </select>
+
+        <button class="primary" onclick="addTask()">
+          + Ajouter la tâche
+        </button>
+      </div>
+
+      <div class="panel">
+        <h2>Suivi de mes tâches</h2>
+        <div id="taskList"></div>
+      </div>
+
+    </section>
+
+    <section id="services" class="section">
+
+      <div class="panel">
+        <h2>Les services ZENDRIX</h2>
+
+        <div class="service-grid">
+
+          <div class="service">
+            <h3>Gestion de projets</h3>
+            <p>Organise tes projets et suis leur évolution.</p>
+          </div>
+
+          <div class="service">
+            <h3>Organisation</h3>
+            <p>Planifie tes activités et tes priorités.</p>
+          </div>
+
+          <div class="service">
+            <h3>Suivi des tâches</h3>
+            <p>Garde une vision claire de ton travail.</p>
+          </div>
+
+          <div class="service">
+            <h3>Espace personnel</h3>
+            <p>Retrouve tes projets et tes informations.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <div class="footer">
+      ZENDRIX © 2026 — Construis tes idées, développe ton avenir.
     </div>
+
   </main>
+</div>
+
+<script>
+let projects = JSON.parse(localStorage.getItem("zendrixProjects") || "[]");
+let tasks = JSON.parse(localStorage.getItem("zendrixTasks") || "[]");
+
+function saveData() {
+  localStorage.setItem("zendrixProjects", JSON.stringify(projects));
+  localStorage.setItem("zendrixTasks", JSON.stringify(tasks));
+}
+
+function showSection(sectionId, button) {
+  document.querySelectorAll(".section").forEach(section => {
+    section.classList.remove("active");
+  });
+
+  document.getElementById(sectionId).classList.add("active");
+
+  document.querySelectorAll(".menu button").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  button.classList.add("active");
+
+  const titles = {
+    dashboard: "Tableau de bord",
+    projects: "Mes projets",
+    tasks: "Mes tâches",
+    services: "Services"
+  };
+
+  document.getElementById("pageTitle").textContent = titles[sectionId];
+}
+
+function addProject() {
+  const name = document.getElementById("projectName").value.trim();
+  const description = document.getElementById("projectDescription").value.trim();
+
+  if (!name) {
+    alert("Entre un nom pour ton projet.");
+    return;
+  }
+
+  projects.push({
+    name: name,
+    description: description
+  });
+
+  saveData();
+
+  document.getElementById("projectName").value = "";
+  document.getElementById("projectDescription").value = "";
+
+  render();
+}
+
+function addTask() {
+  const name = document.getElementById("taskName").value.trim();
+  const status = document.getElementById("taskStatus").value;
+
+  if (!name) {
+    alert("Entre un nom pour ta tâche.");
+    return;
+  }
+
+  tasks.push({
+    name: name,
+    status: status
+  });
+
+  saveData();
+
+  document.getElementById("taskName").value = "";
+
+  render();
+}
+
+function deleteProject(index) {
+  projects.splice(index, 1);
+  saveData();
+  render();
+}
+
+function deleteTask(index) {
+  tasks.splice(index, 1);
+  saveData();
+  render();
+}
+
+function changeTaskStatus(index, status) {
+  tasks[index].status = status;
+  saveData();
+  render();
+}
+
+function render() {
+  const projectList = document.getElementById("projectList");
+  const taskList = document.getElementById("taskList");
+
+  projectList.innerHTML = "";
+  taskList.innerHTML = "";
+
+  document.getElementById("projectCount").textContent = projects.length;
+  document.getElementById("taskCount").textContent = tasks.length;
+  document.getElementById("doneCount").textContent =
+    tasks.filter(task => task.status === "Terminée").length;
+
+  if (projects.length === 0) {
+    projectList.innerHTML = '<p class="empty">Aucun projet pour le moment.</p>';
+  }
+
+  projects.forEach((project, index) => {
+    const item = document.createElement("div");
+    item.className = "item";
+
+    const content = document.createElement("div");
+    const title = document.createElement("strong");
+    const description = document.createElement("p");
+
+    title.textContent = project.name;
+    description.textContent = project.description || "Aucune description";
+
+    content.append(title, description);
+
+    const remove = document.createElement("button");
+    remove.className = "delete";
+    remove.textContent = "Supprimer";
+    remove.onclick = () => deleteProject(index);
+
+    item.append(content, remove);
+    projectList.appendChild(item);
+  });
+
+  if (tasks.length === 0) {
+    taskList.innerHTML = '<p class="empty">Aucune tâche pour le moment.</p>';
+  }
+
+  tasks.forEach((task, index) => {
+    const item = document.createElement("div");
+    item.className = "item";
+
+    const name = document.createElement("strong");
+    name.textContent = task.name;
+
+    const select = document.createElement("select");
+
+    ["À faire", "En cours", "Terminée"].forEach(status => {
+      const option = document.createElement("option");
+      option.value = status;
+      option.textContent = status;
+      select.appendChild(option);
+    });
+
+    select.value = task.status;
+    select.onchange = () => changeTaskStatus(index, select.value);
+
+    const remove = document.createElement("button");
+    remove.className = "delete";
+    remove.textContent = "Supprimer";
+    remove.onclick = () => deleteTask(index);
+
+    item.append(name, select, remove);
+    taskList.appendChild(item);
+  });
+}
+
+render();
+</script>
+
 </body>
 </html>
