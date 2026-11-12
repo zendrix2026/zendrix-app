@@ -1,599 +1,336 @@
- 
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZENDRIX - Tableau de bord</title>
-
+<title>ZENDRIX - Plateforme multiservices</title>
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-body {
-  background: #0b1020;
-  color: #f5f5ff;
-  min-height: 100vh;
-}
-
-.layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-.sidebar {
-  width: 235px;
-  background: #11182b;
-  padding: 28px 18px;
-  border-right: 1px solid #27304a;
-}
-
-.logo {
-  font-size: 27px;
-  font-weight: bold;
-  color: #a78bfa;
-  margin-bottom: 8px;
-}
-
-.subtitle {
-  color: #8d96ad;
-  font-size: 12px;
-  margin-bottom: 38px;
-}
-
-.menu button {
-  display: block;
-  width: 100%;
-  background: transparent;
-  color: #b8c0d5;
-  border: none;
-  text-align: left;
-  padding: 14px;
-  margin-bottom: 8px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.menu button:hover,
-.menu button.active {
-  background: #282044;
-  color: #c4b5fd;
-}
-
-.main {
-  flex: 1;
-  padding: 35px;
-  min-width: 0;
-}
-
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
-}
-
-.topbar h1 {
-  font-size: 27px;
-}
-
-.profile {
-  background: #1a2340;
-  padding: 10px 16px;
-  border-radius: 20px;
-  color: #c4b5fd;
-  font-size: 13px;
-}
-
-.welcome {
-  background: linear-gradient(120deg, #29204c, #182746);
-  padding: 30px;
-  border-radius: 18px;
-  margin-bottom: 25px;
-}
-
-.welcome h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.welcome p {
-  color: #c3c8dc;
-  line-height: 1.6;
-}
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  margin-bottom: 30px;
-}
-
-.stat, .panel {
-  background: #151e33;
-  border: 1px solid #29334e;
-  padding: 22px;
-  border-radius: 15px;
-}
-
-.stat p {
-  color: #a1abc2;
-  font-size: 13px;
-  margin-bottom: 12px;
-}
-
-.stat h3 {
-  font-size: 28px;
-  color: #c4b5fd;
-}
-
-.panel {
-  margin-bottom: 20px;
-}
-
-.panel h2 {
-  font-size: 19px;
-  margin-bottom: 18px;
-}
-
-.section {
-  display: none;
-}
-
-.section.active {
-  display: block;
-}
-
-input, textarea, select {
-  width: 100%;
-  padding: 12px;
-  background: #0e172a;
-  border: 1px solid #39445e;
-  border-radius: 8px;
-  color: white;
-  margin-bottom: 12px;
-}
-
-textarea {
-  resize: vertical;
-}
-
-.primary {
-  background: #8b5cf6;
-  color: white;
-  border: none;
-  padding: 12px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.primary:hover {
-  background: #7042d8;
-}
-
-.item {
-  background: #202b43;
-  padding: 15px;
-  border-radius: 10px;
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.item small {
-  color: #aab4ca;
-}
-
-.delete {
-  background: #542b42;
-  color: #ffc2d5;
-  border: none;
-  padding: 8px 10px;
-  border-radius: 7px;
-  cursor: pointer;
-}
-
-.empty {
-  color: #8792aa;
-  font-size: 14px;
-}
-
-.service-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-}
-
-.service {
-  background: #202b43;
-  padding: 20px;
-  border-radius: 12px;
-}
-
-.service h3 {
-  color: #c4b5fd;
-  margin-bottom: 8px;
-}
-
-.service p {
-  color: #aab4ca;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.footer {
-  color: #68748e;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 35px;
-}
-
-@media (max-width: 750px) {
-  .layout {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    width: 100%;
-    padding: 18px;
-  }
-
-  .subtitle {
-    margin-bottom: 15px;
-  }
-
-  .menu {
-    display: flex;
-    overflow-x: auto;
-    gap: 5px;
-  }
-
-  .menu button {
-    white-space: nowrap;
-    width: auto;
-    margin: 0;
-  }
-
-  .main {
-    padding: 20px;
-  }
-
-  .stats {
-    grid-template-columns: 1fr;
-  }
-
-  .service-grid {
-    grid-template-columns: 1fr;
-  }
-}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#0b1020;color:#f5f5ff;min-height:100vh}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+.auth{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:22px;background:radial-gradient(circle at top,#29204c,#0b1020 65%)}
+.auth-card{width:100%;max-width:510px;background:#151e33;border:1px solid #39405d;border-radius:20px;padding:30px}
+.logo{font-size:30px;font-weight:bold;color:#a78bfa;margin-bottom:8px}
+.subtitle{color:#aab4ca;margin-bottom:25px;font-size:14px}
+h1{font-size:25px;margin-bottom:12px}
+h2{font-size:19px;margin-bottom:16px}
+p{line-height:1.6}
+label{display:block;font-size:13px;color:#c4cbe0;margin:13px 0 7px}
+input,select,textarea{width:100%;padding:12px;background:#0e172a;border:1px solid #39445e;border-radius:8px;color:white;margin-bottom:5px}
+.primary{background:#8b5cf6;color:white;border:0;padding:13px 18px;border-radius:9px;font-weight:bold;width:100%;margin-top:14px}
+.primary:hover{background:#7042d8}
+.secondary{background:#252e46;color:#d9d4ff;border:1px solid #44415f;padding:12px;border-radius:9px;width:100%;margin-top:10px}
+.choice{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.choice button{background:#202b43;color:white;border:1px solid #39445e;padding:18px 10px;border-radius:12px}
+.choice button.selected{border:2px solid #a78bfa;background:#30264e}
+.note{font-size:12px;color:#9da8bf;margin-top:15px}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:235px;background:#11182b;padding:28px 18px;border-right:1px solid #27304a}
+.menu button{display:block;width:100%;background:transparent;color:#b8c0d5;border:0;text-align:left;padding:14px;margin-bottom:8px;border-radius:10px}
+.menu button.active,.menu button:hover{background:#282044;color:#c4b5fd}
+.main{flex:1;padding:30px;min-width:0}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:25px;flex-wrap:wrap}
+.profile{background:#1a2340;padding:10px 16px;border-radius:20px;color:#c4b5fd;font-size:13px}
+.welcome,.panel,.stat{background:#151e33;border:1px solid #29334e;padding:22px;border-radius:15px;margin-bottom:20px}
+.welcome{background:linear-gradient(120deg,#29204c,#182746);padding:30px}
+.welcome p,.empty{color:#aab4ca}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:22px}
+.stat p{color:#a1abc2;font-size:13px;margin-bottom:10px}
+.stat h3{font-size:28px;color:#c4b5fd}
+.section{display:none}.section.active{display:block}
+.item{background:#202b43;padding:15px;border-radius:10px;margin-top:10px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.delete{background:#542b42;color:#ffc2d5;border:0;padding:8px 10px;border-radius:7px}
+.service-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.service{background:#202b43;padding:18px;border-radius:12px}
+.service h3{color:#c4b5fd;margin-bottom:8px}
+.service p{color:#aab4ca;font-size:14px}
+.footer{text-align:center;color:#68748e;font-size:12px;margin-top:30px}
+.notice{padding:13px;background:#292b46;border-radius:9px;color:#d8d1ff;font-size:13px;margin-top:15px}
+@media(max-width:750px){.layout{flex-direction:column}.sidebar{width:100%;padding:18px}.menu{display:flex;overflow-x:auto;gap:5px}.menu button{white-space:nowrap;width:auto}.main{padding:18px}.stats{grid-template-columns:1fr}.service-grid{grid-template-columns:1fr}}
 </style>
 </head>
-
 <body>
 
-<div class="layout">
+<!-- INSCRIPTION -->
+<div id="authScreen" class="auth">
+<div class="auth-card">
+<div class="logo">ZENDRIX</div>
+<div class="subtitle">Ton espace. Tes services. Tes opportunités.</div>
 
-  <aside class="sidebar">
-    <div class="logo">ZENDRIX</div>
-    <div class="subtitle">Ton espace. Tes projets. Ton avenir.</div>
+<div id="welcomeScreen">
+<h1>Bienvenue sur ZENDRIX</h1>
+<p>Une plateforme pour trouver des services, développer ton activité et rencontrer des professionnels.</p>
+<div class="choice">
+<button onclick="showRegister('Particulier')">👤<br><br>Particulier</button>
+<button onclick="showRegister('Professionnel')">💼<br><br>Professionnel</button>
+</div>
+<button class="secondary" onclick="enterDemo()">Découvrir la plateforme</button>
+</div>
 
-    <nav class="menu">
-      <button class="active" onclick="showSection('dashboard', this)">⌂ Tableau de bord</button>
-      <button onclick="showSection('projects', this)">▣ Mes projets</button>
-      <button onclick="showSection('tasks', this)">✓ Mes tâches</button>
-      <button onclick="showSection('services', this)">◇ Services</button>
-    </nav>
-  </aside>
+<div id="registerScreen" class="hidden">
+<h1>Créer un compte</h1>
+<p id="accountType"></p>
+<form id="registerForm">
+<label>Nom complet</label>
+<input id="fullName" required placeholder="Ton nom">
 
-  <main class="main">
+<label>Adresse e-mail</label>
+<input id="email" type="email" required placeholder="exemple@email.com">
 
-    <div class="topbar">
-      <h1 id="pageTitle">Tableau de bord</h1>
-      <div class="profile">Mon espace ZENDRIX</div>
-    </div>
+<label>Mot de passe</label>
+<input id="password" type="password" minlength="8" required placeholder="8 caractères minimum">
 
-    <section id="dashboard" class="section active">
+<div id="professionalOptions" class="hidden">
+<label>Type de professionnel</label>
+<select id="professionalType">
+<option value="Indépendant">Indépendant</option>
+<option value="Entreprise">Entreprise</option>
+</select>
+</div>
 
-      <div class="welcome">
-        <h2>Bienvenue sur ZENDRIX !</h2>
-        <p>
-          Organise tes idées, développe tes projets et avance
-          vers tes objectifs depuis un seul espace.
-        </p>
-      </div>
+<label>Pays</label>
+<select id="country">
+<option value="France">France</option>
+<option value="République centrafricaine">République centrafricaine</option>
+<option value="Cameroun">Cameroun</option>
+</select>
 
-      <div class="stats">
-        <div class="stat">
-          <p>Mes projets</p>
-          <h3 id="projectCount">0</h3>
-        </div>
+<label>Langue</label>
+<select id="language">
+<option value="Français">Français</option>
+<option value="English">English</option>
+<option value="Español">Español</option>
+</select>
 
-        <div class="stat">
-          <p>Mes tâches</p>
-          <h3 id="taskCount">0</h3>
-        </div>
+<button class="primary" type="submit">Créer mon compte de démonstration</button>
+</form>
+<div class="notice">Prototype : aucune authentification réelle n'est encore activée. Ton mot de passe n'est ni enregistré ni transmis.</div>
+<button class="secondary" onclick="backHome()">Retour</button>
+</div>
+</div>
+</div>
 
-        <div class="stat">
-          <p>Tâches terminées</p>
-          <h3 id="doneCount">0</h3>
-        </div>
-      </div>
+<!-- APPLICATION -->
+<div id="appScreen" class="layout hidden">
+<aside class="sidebar">
+<div class="logo">ZENDRIX</div>
+<div class="subtitle">Ton espace. Tes projets. Ton avenir.</div>
+<nav class="menu">
+<button class="active" onclick="showSection('dashboard',this)">⌂ Tableau de bord</button>
+<button onclick="showSection('projects',this)">▣ Mes projets</button>
+<button onclick="showSection('tasks',this)">✓ Mes tâches</button>
+<button onclick="showSection('services',this)">◇ Services</button>
+<button onclick="showSection('account',this)">♙ Mon profil</button>
+</nav>
+</aside>
 
-      <div class="panel">
-        <h2>Bienvenue dans ton espace de travail</h2>
-        <p class="empty">
-          Commence par ajouter un projet ou une tâche.
-          Tes informations seront enregistrées dans ce navigateur.
-        </p>
-      </div>
+<main class="main">
+<div class="topbar">
+<h1 id="pageTitle">Tableau de bord</h1>
+<div class="profile" id="profileName">Mon espace ZENDRIX</div>
+</div>
 
-    </section>
+<section id="dashboard" class="section active">
+<div class="welcome">
+<h2>Bienvenue sur ZENDRIX !</h2>
+<p>Découvre des services, développe tes projets et avance vers tes objectifs depuis un seul espace.</p>
+</div>
+<div class="stats">
+<div class="stat"><p>Mes projets</p><h3 id="projectCount">0</h3></div>
+<div class="stat"><p>Mes tâches</p><h3 id="taskCount">0</h3></div>
+<div class="stat"><p>Tâches terminées</p><h3 id="doneCount">0</h3></div>
+</div>
+<div class="panel">
+<h2>Ton espace de travail</h2>
+<p class="empty">Commence par organiser tes projets ou découvrir les services disponibles.</p>
+</div>
+</section>
 
-    <section id="projects" class="section">
+<section id="projects" class="section">
+<div class="panel">
+<h2>Créer un projet</h2>
+<input id="projectName" placeholder="Nom de ton projet">
+<textarea id="projectDescription" placeholder="Description du projet"></textarea>
+<button class="primary" onclick="addProject()">+ Ajouter le projet</button>
+</div>
+<div class="panel"><h2>Mes projets</h2><div id="projectList"></div></div>
+</section>
 
-      <div class="panel">
-        <h2>Créer un projet</h2>
+<section id="tasks" class="section">
+<div class="panel">
+<h2>Ajouter une tâche</h2>
+<input id="taskName" placeholder="Nom de la tâche">
+<select id="taskStatus">
+<option>À faire</option><option>En cours</option><option>Terminée</option>
+</select>
+<button class="primary" onclick="addTask()">+ Ajouter la tâche</button>
+</div>
+<div class="panel"><h2>Suivi de mes tâches</h2><div id="taskList"></div></div>
+</section>
 
-        <input id="projectName" type="text"
-          placeholder="Nom de ton projet">
+<section id="services" class="section">
+<div class="panel">
+<h2>Catalogue des services</h2>
+<div class="service-grid" id="serviceGrid"></div>
+</div>
+</section>
 
-        <textarea id="projectDescription"
-          placeholder="Description du projet"></textarea>
+<section id="account" class="section">
+<div class="panel">
+<h2>Mon profil</h2>
+<p id="accountDetails" class="empty"></p>
+<div class="notice">La vérification des professionnels et la gestion réelle des comptes seront activées dans une prochaine version.</div>
+<button class="secondary" onclick="logout()">Quitter la démonstration</button>
+</div>
+</section>
 
-        <button class="primary" onclick="addProject()">
-          + Ajouter le projet
-        </button>
-      </div>
-
-      <div class="panel">
-        <h2>Mes projets</h2>
-        <div id="projectList"></div>
-      </div>
-
-    </section>
-
-    <section id="tasks" class="section">
-
-      <div class="panel">
-        <h2>Ajouter une tâche</h2>
-
-        <input id="taskName" type="text"
-          placeholder="Nom de la tâche">
-
-        <select id="taskStatus">
-          <option value="À faire">À faire</option>
-          <option value="En cours">En cours</option>
-          <option value="Terminée">Terminée</option>
-        </select>
-
-        <button class="primary" onclick="addTask()">
-          + Ajouter la tâche
-        </button>
-      </div>
-
-      <div class="panel">
-        <h2>Suivi de mes tâches</h2>
-        <div id="taskList"></div>
-      </div>
-
-    </section>
-
-    <section id="services" class="section">
-
-      <div class="panel">
-        <h2>Les services ZENDRIX</h2>
-
-        <div class="service-grid">
-
-          <div class="service">
-            <h3>Gestion de projets</h3>
-            <p>Organise tes projets et suis leur évolution.</p>
-          </div>
-
-          <div class="service">
-            <h3>Organisation</h3>
-            <p>Planifie tes activités et tes priorités.</p>
-          </div>
-
-          <div class="service">
-            <h3>Suivi des tâches</h3>
-            <p>Garde une vision claire de ton travail.</p>
-          </div>
-
-          <div class="service">
-            <h3>Espace personnel</h3>
-            <p>Retrouve tes projets et tes informations.</p>
-          </div>
-
-        </div>
-      </div>
-
-    </section>
-
-    <div class="footer">
-      ZENDRIX © 2026 — Construis tes idées, développe ton avenir.
-    </div>
-
-  </main>
+<div class="footer">ZENDRIX © 2026 — Construis tes idées, développe ton avenir.</div>
+</main>
 </div>
 
 <script>
-let projects = JSON.parse(localStorage.getItem("zendrixProjects") || "[]");
-let tasks = JSON.parse(localStorage.getItem("zendrixTasks") || "[]");
+let projects=JSON.parse(localStorage.getItem("zendrixProjects")||"[]");
+let tasks=JSON.parse(localStorage.getItem("zendrixTasks")||"[]");
+let selectedRole="Particulier";
+let profile=null;
 
-function saveData() {
-  localStorage.setItem("zendrixProjects", JSON.stringify(projects));
-  localStorage.setItem("zendrixTasks", JSON.stringify(tasks));
+const categories=[
+["Commerce et achats","Boutiques, vente et achats"],
+["Transport et livraison","Déplacements et livraisons"],
+["Informatique et numérique","Technologie et assistance numérique"],
+["Éducation et formation","Cours et accompagnement"],
+["Santé et bien-être","Services de bien-être"],
+["Maison et travaux","Entretien et réparations"],
+["Beauté et mode","Beauté, coiffure et style"],
+["Événementiel","Organisation et événements"],
+["Services professionnels","Conseil et prestations spécialisées"],
+["Autres services","Autres prestations"]
+];
+
+function showRegister(role){
+selectedRole=role;
+document.getElementById("welcomeScreen").classList.add("hidden");
+document.getElementById("registerScreen").classList.remove("hidden");
+document.getElementById("accountType").textContent="Type de compte : "+role;
+document.getElementById("professionalOptions").classList.toggle("hidden",role!=="Professionnel");
 }
-
-function showSection(sectionId, button) {
-  document.querySelectorAll(".section").forEach(section => {
-    section.classList.remove("active");
-  });
-
-  document.getElementById(sectionId).classList.add("active");
-
-  document.querySelectorAll(".menu button").forEach(btn => {
-    btn.classList.remove("active");
-  });
-
-  button.classList.add("active");
-
-  const titles = {
-    dashboard: "Tableau de bord",
-    projects: "Mes projets",
-    tasks: "Mes tâches",
-    services: "Services"
-  };
-
-  document.getElementById("pageTitle").textContent = titles[sectionId];
+function backHome(){
+document.getElementById("registerScreen").classList.add("hidden");
+document.getElementById("welcomeScreen").classList.remove("hidden");
 }
-
-function addProject() {
-  const name = document.getElementById("projectName").value.trim();
-  const description = document.getElementById("projectDescription").value.trim();
-
-  if (!name) {
-    alert("Entre un nom pour ton projet.");
-    return;
-  }
-
-  projects.push({
-    name: name,
-    description: description
-  });
-
-  saveData();
-
-  document.getElementById("projectName").value = "";
-  document.getElementById("projectDescription").value = "";
-
-  render();
+document.getElementById("registerForm").addEventListener("submit",function(e){
+e.preventDefault();
+profile={
+name:document.getElementById("fullName").value.trim(),
+email:document.getElementById("email").value.trim(),
+role:selectedRole,
+professionalType:selectedRole==="Professionnel"?document.getElementById("professionalType").value:"",
+country:document.getElementById("country").value,
+language:document.getElementById("language").value
+};
+localStorage.setItem("zendrixDemoProfile",JSON.stringify(profile));
+document.getElementById("password").value="";
+openApp();
+});
+function enterDemo(){
+profile={name:"Visiteur",email:"",role:"Visiteur",country:"Non renseigné",language:"Français"};
+openApp();
 }
-
-function addTask() {
-  const name = document.getElementById("taskName").value.trim();
-  const status = document.getElementById("taskStatus").value;
-
-  if (!name) {
-    alert("Entre un nom pour ta tâche.");
-    return;
-  }
-
-  tasks.push({
-    name: name,
-    status: status
-  });
-
-  saveData();
-
-  document.getElementById("taskName").value = "";
-
-  render();
+function openApp(){
+document.getElementById("authScreen").classList.add("hidden");
+document.getElementById("appScreen").classList.remove("hidden");
+document.getElementById("profileName").textContent=profile.name;
+document.getElementById("accountDetails").textContent=
+"Nom : "+profile.name+" | E-mail : "+(profile.email||"Non renseigné")+
+" | Profil : "+profile.role+
+(profile.professionalType?" ("+profile.professionalType+")":"")+
+" | Pays : "+profile.country+" | Langue : "+profile.language;
+render();
 }
-
-function deleteProject(index) {
-  projects.splice(index, 1);
-  saveData();
-  render();
+function logout(){
+localStorage.removeItem("zendrixDemoProfile");
+profile=null;
+document.getElementById("appScreen").classList.add("hidden");
+document.getElementById("authScreen").classList.remove("hidden");
+backHome();
 }
-
-function deleteTask(index) {
-  tasks.splice(index, 1);
-  saveData();
-  render();
+function showSection(id,button){
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+document.querySelectorAll(".menu button").forEach(b=>b.classList.remove("active"));
+button.classList.add("active");
+const titles={dashboard:"Tableau de bord",projects:"Mes projets",tasks:"Mes tâches",services:"Services",account:"Mon profil"};
+document.getElementById("pageTitle").textContent=titles[id];
 }
-
-function changeTaskStatus(index, status) {
-  tasks[index].status = status;
-  saveData();
-  render();
+function saveData(){
+localStorage.setItem("zendrixProjects",JSON.stringify(projects));
+localStorage.setItem("zendrixTasks",JSON.stringify(tasks));
 }
-
-function render() {
-  const projectList = document.getElementById("projectList");
-  const taskList = document.getElementById("taskList");
-
-  projectList.innerHTML = "";
-  taskList.innerHTML = "";
-
-  document.getElementById("projectCount").textContent = projects.length;
-  document.getElementById("taskCount").textContent = tasks.length;
-  document.getElementById("doneCount").textContent =
-    tasks.filter(task => task.status === "Terminée").length;
-
-  if (projects.length === 0) {
-    projectList.innerHTML = '<p class="empty">Aucun projet pour le moment.</p>';
-  }
-
-  projects.forEach((project, index) => {
-    const item = document.createElement("div");
-    item.className = "item";
-
-    const content = document.createElement("div");
-    const title = document.createElement("strong");
-    const description = document.createElement("p");
-
-    title.textContent = project.name;
-    description.textContent = project.description || "Aucune description";
-
-    content.append(title, description);
-
-    const remove = document.createElement("button");
-    remove.className = "delete";
-    remove.textContent = "Supprimer";
-    remove.onclick = () => deleteProject(index);
-
-    item.append(content, remove);
-    projectList.appendChild(item);
-  });
-
-  if (tasks.length === 0) {
-    taskList.innerHTML = '<p class="empty">Aucune tâche pour le moment.</p>';
-  }
-
-  tasks.forEach((task, index) => {
-    const item = document.createElement("div");
-    item.className = "item";
-
-    const name = document.createElement("strong");
-    name.textContent = task.name;
-
-    const select = document.createElement("select");
-
-    ["À faire", "En cours", "Terminée"].forEach(status => {
-      const option = document.createElement("option");
-      option.value = status;
-      option.textContent = status;
-      select.appendChild(option);
-    });
-
-    select.value = task.status;
-    select.onchange = () => changeTaskStatus(index, select.value);
-
-    const remove = document.createElement("button");
-    remove.className = "delete";
-    remove.textContent = "Supprimer";
-    remove.onclick = () => deleteTask(index);
-
-    item.append(name, select, remove);
-    taskList.appendChild(item);
-  });
+function addProject(){
+const name=document.getElementById("projectName").value.trim();
+const description=document.getElementById("projectDescription").value.trim();
+if(!name)return alert("Entre un nom pour ton projet.");
+projects.push({name,description});
+saveData();
+document.getElementById("projectName").value="";
+document.getElementById("projectDescription").value="";
+render();
 }
-
+function addTask(){
+const name=document.getElementById("taskName").value.trim();
+const status=document.getElementById("taskStatus").value;
+if(!name)return alert("Entre un nom pour ta tâche.");
+tasks.push({name,status});
+saveData();
+document.getElementById("taskName").value="";
+render();
+}
+function deleteProject(i){projects.splice(i,1);saveData();render()}
+function deleteTask(i){tasks.splice(i,1);saveData();render()}
+function changeTaskStatus(i,status){tasks[i].status=status;saveData();render()}
+function render(){
+document.getElementById("projectCount").textContent=projects.length;
+document.getElementById("taskCount").textContent=tasks.length;
+document.getElementById("doneCount").textContent=tasks.filter(t=>t.status==="Terminée").length;
+const pl=document.getElementById("projectList");
+const tl=document.getElementById("taskList");
+pl.innerHTML="";tl.innerHTML="";
+if(!projects.length)pl.innerHTML='<p class="empty">Aucun projet pour le moment.</p>';
+projects.forEach((p,i)=>{
+const item=document.createElement("div");item.className="item";
+const content=document.createElement("div");
+const title=document.createElement("strong");title.textContent=p.name;
+const desc=document.createElement("p");desc.textContent=p.description||"Aucune description";
+content.append(title,desc);
+const del=document.createElement("button");del.className="delete";del.textContent="Supprimer";del.onclick=()=>deleteProject(i);
+item.append(content,del);pl.append(item);
+});
+if(!tasks.length)tl.innerHTML='<p class="empty">Aucune tâche pour le moment.</p>';
+tasks.forEach((t,i)=>{
+const item=document.createElement("div");item.className="item";
+const name=document.createElement("strong");name.textContent=t.name;
+const select=document.createElement("select");
+["À faire","En cours","Terminée"].forEach(s=>{const o=document.createElement("option");o.value=s;o.textContent=s;select.append(o)});
+select.value=t.status;select.onchange=()=>changeTaskStatus(i,select.value);
+const del=document.createElement("button");del.className="delete";del.textContent="Supprimer";del.onclick=()=>deleteTask(i);
+item.append(name,select,del);tl.append(item);
+});
+const grid=document.getElementById("serviceGrid");grid.innerHTML="";
+categories.forEach(c=>{
+const card=document.createElement("div");card.className="service";
+const h=document.createElement("h3");h.textContent=c[0];
+const p=document.createElement("p");p.textContent=c[1];
+card.append(h,p);grid.append(card);
+});
+}
+const savedProfile=localStorage.getItem("zendrixDemoProfile");
+if(savedProfile){
+try{profile=JSON.parse(savedProfile);openApp()}catch(e){localStorage.removeItem("zendrixDemoProfile")}
+}
 render();
 </script>
-
 </body>
 </html>
